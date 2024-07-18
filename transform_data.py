@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
 import os
-import argparse
 
 def transform_data(file_path):
     # read the data from the CSV file, skipping the first 4 rows which contain metadata
@@ -48,12 +47,17 @@ def transform_data(file_path):
             transformed_dataframes[value] = df_melted
 
     # save the transformed dataframes to CSV files
+    output_files = []
     for key, dataframe in transformed_dataframes.items():
         filename = f'{key}.csv'
         dataframe.to_csv(filename, index=False)
+        output_files.append(filename)
         print(f"Saved DataFrame for key '{key}' to '{filename}'")
+    
+    return output_files
 
-def main():
+if __name__ == '__main__':
+    import argparse
     # parse the input arguments
     parser = argparse.ArgumentParser(description="Transform data from a CSV file.")
     parser.add_argument('file', type=str, help='Path to the input CSV file.')
@@ -61,7 +65,3 @@ def main():
     
     # transform the data
     transform_data(args.file)
-
-# check if the script is being run directly
-if __name__ == '__main__':
-    main()
