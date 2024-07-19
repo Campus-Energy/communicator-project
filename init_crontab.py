@@ -48,7 +48,7 @@ if __name__ == '__main__':
     ensure_communicator_user()
     
     parser = argparse.ArgumentParser(description='Add a cron job to run a script at a specified interval.')
-    parser.add_argument('interval', type=str, choices=['hourly', 'daily', 'weekly', 'monthly'],
+    parser.add_argument('interval', type=str, choices=['minute', 'hourly', 'daily', 'weekly', 'monthly'],
                         help='Interval at which to run the cron job (hourly, daily, weekly, monthly)')
     parser.add_argument('script_path', type=str, help='Path to the script to be run by the cron job')
 
