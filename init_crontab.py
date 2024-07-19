@@ -21,7 +21,7 @@ def add_cron_job(interval, command):
         # Set the job interval based on user input
         if interval == 'minute':
             job.minute.every(1)
-        if interval == 'hourly':
+        elif interval == 'hourly':
             job.minute.every(60)
         elif interval == 'daily':
             job.hour.every(24)
