@@ -69,7 +69,7 @@
 9. Run `init_crontab.py`.
 
     ```sh
-    python3 /home/campusenergy/communicator-project/init_crontab.py <interval - minute, hourly, daily, weekly, or monthly> /home/campusenergy/communicator-project/db_upload.py /home/campusenergy/db_upload.log
+    python3 /home/campusenergy/communicator-project/init_crontab.py <interval - minute, hourly, daily, weekly, or monthly> /home/campusenergy/communicator-project/db_upload.py /home/campusenergy/logs/db_upload.log
     ```
 
 10. Check the log file to verify script execution.
@@ -87,7 +87,7 @@
 
     The job will look something like this:
     ```plaintext
-    * * * * * /usr/bin/python3 /home/campusenergy/communicator-project/db_upload.py >> /home/campusenergy/db_upload.log 2>&1 # Communicator data processing job
+    * * * * * /usr/bin/python3 /home/campusenergy/communicator-project/db_upload.py >> /home/campusenergy/logs/db_upload.log 2>&1 # Communicator data processing job
     ```
 
     Delete the line and save your deletion.
