@@ -44,6 +44,14 @@ def ensure_communicator_user():
             print("This script must be run by the 'communicator' user.")
             sys.exit(1)
 
+def ensure_log_directory(log_file):
+    log_dir = os.path.dirname(log_file)
+    if not os.path.exists(log_dir):
+        os.makedirs(log_dir)
+        print(f'Created log directory: {log_dir}')
+    else:
+        print(f'Log directory already exists: {log_dir}')
+
 if __name__ == '__main__':
     ensure_communicator_user()
     
@@ -54,6 +62,8 @@ if __name__ == '__main__':
     parser.add_argument('log_file', type=str, help='Path to the log file')
 
     args = parser.parse_args()
+    
+    ensure_log_directory(args.log_file)
 
     command = f'/usr/bin/python3 {args.script_path} >> {args.log_file} 2>&1'
     add_cron_job(args.interval, command, args.log_file)
