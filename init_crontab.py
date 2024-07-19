@@ -19,7 +19,7 @@ def add_cron_job(interval, command):
         job = cron.new(command=command, comment='Communicator data processing job')
         
         # Set the job interval based on user input
-        if interval == 'minute';
+        if interval == 'minute':
             job.minute.every(1)
         if interval == 'hourly':
             job.minute.every(60)
