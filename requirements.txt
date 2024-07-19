@@ -1,6 +1,6 @@
-numpy==1.18.5  # fundamental package for scientific computing with Python, provides support for arrays and matrices
-pandas==1.0.5  # data manipulation library, used for data analysis and manipulation
-psycopg2==2.8.6  # PostgreSQL database adapter for Python, allows connection and interaction with a PostgreSQL database
-python-crontab==2.5.1  # allows for the creation and management of cron jobs in Python (scheduling tasks)
-glob2==0.7  # enhanced version of the built-in glob module, used for finding all pathnames matching a specified pattern
+numpy>=1.18.5  # fundamental package for scientific computing with Python, provides support for arrays and matrices
+pandas>=1.0.5  # data manipulation library, used for data analysis and manipulation
+psycopg2>=2.8.6  # PostgreSQL database adapter for Python, allows connection and interaction with a PostgreSQL database
+python-crontab>=2.5.1  # allows for the creation and management of cron jobs in Python (scheduling tasks)
+glob2>=0.7  # enhanced version of the built-in glob module, used for finding all pathnames matching a specified pattern
 # shutil==1.0.0  # provides a higher-level interface for file operations, such as copying and removing files
