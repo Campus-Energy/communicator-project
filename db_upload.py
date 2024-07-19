@@ -57,9 +57,10 @@ def upload_to_database(file_path):
         # Add other mappings here if needed
     }
     
-    # Determine the table based on the file name prefix
+    # Extract the unit from the file name
     file_name = os.path.splitext(os.path.basename(file_path))[0]
-    table_name = table_mapping.get(file_name)
+    unit = file_name.split('_')[0]
+    table_name = table_mapping.get(unit)
     
     if not table_name:
         print(f"No table mapping found for file: {file_path}")
