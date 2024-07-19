@@ -16,9 +16,11 @@ def add_cron_job(interval, command):
 
     # If the job does not exist, add it
     if not job_exists:
-        job = cron.new(command=command, comment='Data processing job')
+        job = cron.new(command=command, comment='Communicator data processing job')
         
         # Set the job interval based on user input
+        if interval == 'minute';
+            job.minute.every(1)
         if interval == 'hourly':
             job.minute.every(60)
         elif interval == 'daily':
@@ -38,7 +40,7 @@ def add_cron_job(interval, command):
 
 def ensure_communicator_user():
     if os.geteuid() != 0:
-        if os.getlogin() != 'communicator':
+        if os.getlogin() != 'lydia':
             print("This script must be run by the 'communicator' user.")
             sys.exit(1)
 
