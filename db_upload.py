@@ -14,6 +14,10 @@ DB_USER = getpass.getuser()
 def process_files():
     inbox_folder = '/home/lydia/inbox'
     completed_folder = '/home/lydia/completed'
+    
+    # Ensure the completed folder exists
+    os.makedirs(completed_folder, exist_ok=True)
+    
     csv_files = glob.glob(os.path.join(inbox_folder, '*.csv'))
 
     for csv_file in csv_files:
