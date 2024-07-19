@@ -10,7 +10,6 @@ from transform_data import transform_data
 DB_HOST = 'localhost'  # db running on same machine as the script
 DB_NAME = 'uhm2023'
 DB_USER = getpass.getuser()
-DB_PASSWORD = getpass.getpass(prompt='Enter database password: ')
 
 def process_files():
     inbox_folder = '/home/lydia/inbox'
@@ -70,11 +69,12 @@ def upload_to_database(file_path):
     cur = None
     
     try:
+        # Connect to the database using the .pgpass file for authentication
         conn = psycopg2.connect(
             host=DB_HOST,
             dbname=DB_NAME,
-            user=DB_USER,
-            password=DB_PASSWORD
+            user=DB_USER
+            # No need to specify password here; it will be fetched from .pgpass
         )
         
         # Get the columns from the table
