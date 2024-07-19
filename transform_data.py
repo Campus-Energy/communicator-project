@@ -46,10 +46,15 @@ def transform_data(file_path):
         else:
             transformed_dataframes[value] = df_melted
 
+        # define the output directory one level higher and named 'ready-for-upload'
+    output_dir = os.path.abspath(os.path.join(os.path.dirname(file_path), '..', 'ready-for-upload'))
+    # create the directory if it does not exist
+    os.makedirs(output_dir, exist_ok=True)
+
     # save the transformed dataframes to CSV files
     output_files = []
     for key, dataframe in transformed_dataframes.items():
-        filename = f'{key}.csv'
+        filename = os.path.join(output_dir, f'{key}.csv')
         dataframe.to_csv(filename, index=False)
         output_files.append(filename)
         print(f"Saved DataFrame for key '{key}' to '{filename}'")
