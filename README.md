@@ -2,29 +2,29 @@
 
 ## Setup
 
-1. Manually create `communicator` user on the server (only needed for first-time setup)
-2. Switch to the `communicator` user
+1. Manually create `campusenergy` user on the server (only needed for first-time setup)
+2. Switch to the `campusenergy` user
 
     ```sh
-    su communicator
+    su campusenergy
     ```
 
-3. Go to `communicator` home directory
+3. Go to `campusenergy` home directory
 
     ```sh
-    cd /home/communicator
+    cd /home/campusenergy
     ```
 
-4. Clone `communicator` repository
+4. Clone `campusenergy` repository
 
     ```sh
-    git clone <url>
+    git clone https://github.com/Campus-Energy/communicator-project.git
     ```
 
 5. `cd` into repository folder
 
     ```sh
-    cd <project folder name>
+    cd communicator-project
     ```
 
 6. Install python3 packages from `requirements.txt`
