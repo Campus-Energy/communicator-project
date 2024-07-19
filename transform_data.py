@@ -46,7 +46,7 @@ def transform_data(file_path):
         else:
             transformed_dataframes[value] = df_melted
 
-        # define the output directory one level higher and named 'ready-for-upload'
+    # define the output directory one level higher and named 'ready-for-upload'
     output_dir = os.path.abspath(os.path.join(os.path.dirname(file_path), '..', 'ready-for-upload'))
     # create the directory if it does not exist
     os.makedirs(output_dir, exist_ok=True)
@@ -54,7 +54,11 @@ def transform_data(file_path):
     # save the transformed dataframes to CSV files
     output_files = []
     for key, dataframe in transformed_dataframes.items():
-        filename = os.path.join(output_dir, f'{key}.csv')
+        # Get the first and last datetime values
+        first_datetime = dataframe['datetime'].iloc[0]
+        last_datetime = dataframe['datetime'].iloc[-1]
+        # Format the filename with the unit and datetime range
+        filename = os.path.join(output_dir, f'{key}_{first_datetime}_{last_datetime}.csv')
         dataframe.to_csv(filename, index=False)
         output_files.append(filename)
         print(f"Saved DataFrame for key '{key}' to '{filename}'")

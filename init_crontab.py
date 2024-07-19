@@ -3,7 +3,7 @@ import os
 import sys
 from crontab import CronTab
 
-def add_cron_job(interval, command):
+def add_cron_job(interval, command, log_file):
     # User's crontab
     cron = CronTab(user=True)
 
@@ -22,7 +22,7 @@ def add_cron_job(interval, command):
         if interval == 'minute':
             job.minute.every(1)
         elif interval == 'hourly':
-            job.minute.every(60)
+            job.hour.every(1)
         elif interval == 'daily':
             job.hour.every(24)
         elif interval == 'weekly':
@@ -49,10 +49,11 @@ if __name__ == '__main__':
     
     parser = argparse.ArgumentParser(description='Add a cron job to run a script at a specified interval.')
     parser.add_argument('interval', type=str, choices=['minute', 'hourly', 'daily', 'weekly', 'monthly'],
-                        help='Interval at which to run the cron job (hourly, daily, weekly, monthly)')
+                        help='Interval at which to run the cron job (minute, hourly, daily, weekly, monthly)')
     parser.add_argument('script_path', type=str, help='Path to the script to be run by the cron job')
+    parser.add_argument('log_file', type=str, help='Path to the log file')
 
     args = parser.parse_args()
 
-    command = f'/usr/bin/python3 {args.script_path}'
-    add_cron_job(args.interval, command)
+    command = f'/usr/bin/python3 {args.script_path} >> {args.log_file} 2>&1'
+    add_cron_job(args.interval, command, args.log_file)
