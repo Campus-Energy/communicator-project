@@ -40,7 +40,7 @@ def add_cron_job(interval, command, log_file):
 
 def ensure_communicator_user():
     if os.geteuid() != 0:
-        if os.getlogin() != 'lydia':
+        if os.getlogin() != 'campusenergy':
             print("This script must be run by the 'communicator' user.")
             sys.exit(1)
 

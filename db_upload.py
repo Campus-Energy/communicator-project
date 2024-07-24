@@ -12,8 +12,8 @@ DB_NAME = 'uhm2023'
 DB_USER = getpass.getuser()
 
 def process_files():
-    inbox_folder = '/home/lydia/inbox'
-    completed_folder = '/home/lydia/completed'
+    inbox_folder = '/home/campusenergy/inbox'
+    completed_folder = '/home/campusenergy/completed'
     
     # Ensure the completed folder exists
     os.makedirs(completed_folder, exist_ok=True)
