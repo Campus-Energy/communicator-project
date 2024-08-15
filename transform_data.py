@@ -5,6 +5,8 @@ import os
 def transform_data(file_path):
     # Read the data from the CSV file, skipping the first 4 rows which contain metadata
     df = pd.read_csv(file_path, skiprows=4, header=None)
+    df = df.dropna(how='all')
+
 
     # Get the second row after the skipped rows which contains 'Time Stamp' in the first column and units of measure in subsequent columns
     second_row_after_skip = df.iloc[1]
@@ -32,7 +34,7 @@ def transform_data(file_path):
         datetime_col = df_subset['datetime']
         # Melt the dataframe to have a single column for meter_id and another for meter_reading
         df_melted = df_subset.iloc[1:].melt(id_vars=['datetime'], var_name='meter_id', value_name='meter_reading')
-        df_melted['meter_reading'] = df_melted['meter_reading'].str.strip().str.replace(r'[^\d.]+', '', regex=True)
+        df_melted['meter_reading'] = df_melted['meter_reading'].astype(str).str.strip().str.replace(r'[^\d.]+', '', regex=True)
         df_melted['meter_reading'] = pd.to_numeric(df_melted['meter_reading'], errors='coerce')
 
         # Convert the meter readings to the appropriate units
@@ -52,27 +54,33 @@ def transform_data(file_path):
 
     # Save the transformed dataframes to CSV files
     output_files = []
+    print(transformed_dataframes.items())
+    
     for key, dataframe in transformed_dataframes.items():
+        if ( dataframe.empty ):
+            pass
+        else:
         # Get the first and last datetime values
-        first_datetime = dataframe['datetime'].iloc[0]
-        last_datetime = dataframe['datetime'].iloc[-1]
+            print( "getting datetimes..." )
+        
+            print( "\n\tsearching for start date... " )
+            first_datetime = dataframe['datetime'].iloc[0]
+            print( "\n\tstart date found\n\t", first_datetime )
+        
+            print( "\n\tsearching for end date..." )
+            last_datetime = dataframe['datetime'].iloc[-1]
+            print( "\n\tend date found...\n\t", last_datetime )
+        
         # Format the datetime values to avoid invalid characters
-        first_datetime_str = pd.to_datetime(first_datetime).strftime('%Y-%m-%d_%H-%M-%S')
-        last_datetime_str = pd.to_datetime(last_datetime).strftime('%Y-%m-%d_%H-%M-%S')
+            first_datetime_str = pd.to_datetime(first_datetime).strftime('%Y-%m-%d_%H-%M-%S')
+            last_datetime_str = pd.to_datetime(last_datetime).strftime('%Y-%m-%d_%H-%M-%S')
+        
         # Format the filename with the unit and datetime range
-        filename = os.path.join(output_dir, f'{key}_{first_datetime_str}_{last_datetime_str}.csv')
-        dataframe.to_csv(filename, index=False)
-        output_files.append(filename)
-        print(f"Saved DataFrame for key '{key}' to '{filename}'")
+            filename = os.path.join(output_dir, f'{key}_{first_datetime_str}_{last_datetime_str}.csv')
+            dataframe.to_csv(filename, index=False)
+            output_files.append(filename)
+            print(f"Saved DataFrame for key '{key}' to '{filename}'")
     
     return output_files
 
-if __name__ == '__main__':
-    import argparse
-    # Parse the input arguments
-    parser = argparse.ArgumentParser(description="Transform data from a CSV file.")
-    parser.add_argument('file', type=str, help='Path to the input CSV file.')
-    args = parser.parse_args()
-    
-    # Transform the data
-    transform_data(args.file)
+transform_data("PHASE TWO_Scheduled_Report2_202406300000.csv")
